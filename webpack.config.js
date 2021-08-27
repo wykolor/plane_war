@@ -5,4 +5,8 @@ module.exports = {
     filename: "build.js",
     path: path.resolve(__dirname, "./dist")
   },
+  devtool: "source-map",
+  devServer: {
+    static: path.resolve(__dirname, "./dist")
+  }
 }
