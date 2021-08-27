@@ -5,8 +5,6 @@ const game = new Application({
   height: 1080
 })
 
-console.log(game);
-
 document.body.append(game.view)
 
 // game.stage
