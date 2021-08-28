@@ -8,7 +8,9 @@ export default defineComponent({
   setup() {
     const pageMap = new Map([["StartPage", StartPage], ["GamePage", GamePage]]);
 
-    const currentPageName = ref("StartPage");
+    const currentPageName = ref("GamePage");
+
+    console.log(currentPageName);
 
     const currentPage = computed(() => pageMap.get(currentPageName.value));
 

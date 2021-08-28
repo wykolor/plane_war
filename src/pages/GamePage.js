@@ -1,11 +1,13 @@
-import { defineComponent, h } from '@vue/runtime-core'
-import mapImg from '../assets/map.jpg'
+import { defineComponent, h } from '@vue/runtime-core';
+import Map from "../components/Map";
+import Plane from "../components/Plane";
 
 export default defineComponent({
   render() {
     // 背景图片
     return h('Container', [
-      h('Sprite', { texture: mapImg })
+      h(Map),
+      h(Plane)
     ])
   }
 })
