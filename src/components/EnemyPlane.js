@@ -1,3 +1,4 @@
+// 敌方飞机
 import { defineComponent, h, toRefs } from "@vue/runtime-core";
 
 import enemyPlaneImg from "../assets/enemy.png";

@@ -1,7 +1,6 @@
-import { defineComponent, h, onMounted, onUnmounted } from '@vue/runtime-core';
-import { useCreateEnemyPlanes, useCreatePlane } from "../hooks";
-import { game } from "../Game";
-import { hitTextObject } from "../utils";
+import { defineComponent, h } from '@vue/runtime-core';
+import { useCreateEnemyPlanes, useCreatePlane, useCreateBullets, useFighting } from "../hooks";
+
 
 import Map from "../components/Map";
 import Plane from "../components/Plane";
@@ -17,38 +16,20 @@ export default defineComponent({
     const { enemyPlanes } = useCreateEnemyPlanes();
 
     // 我方子弹
-
-    const 
-    
-    const handleTicker = () => {
-      // 主循环
-
-      // 敌军飞机移动
-      enemyPlanes.forEach((enemyInfo) => {
-        enemyInfo.y ++
-      })
-
-      // 碰撞检测
-      enemyPlanes.forEach(enemyInfo => {
-        if(hitTextObject(enemyInfo, planeInfo)) {
-          // console.log('hit');
-          // 游戏结束
-          emit("changePage", "EndPage")
-        }
-      })
+    const { bullets, addBullet } = useCreateBullets();
+    // 发射子弹
+    const onAttack = (bulletInfo) => {
+      addBullet(bulletInfo)
     }
 
-    onMounted(() => {
-      game.ticker.add(handleTicker)
-    })
-
-    onUnmounted(() => {
-      game.ticker.remove(handleTicker)
-    })
-  
+    // 战斗逻辑
+    useFighting(enemyPlanes, bullets, planeInfo, emit )
+    
     return {
       planeInfo,
-      enemyPlanes
+      enemyPlanes,
+      bullets,
+      onAttack
     }
   },
   render(ctx) {
@@ -56,10 +37,17 @@ export default defineComponent({
     const createEnemyPlanes = () => {
       return ctx.enemyPlanes.map(info => h(EnemyPlane, { x: info.x, y: info.y }))
     }
+
+    // 创建我军子弹
+    const createBullets = () => {
+      return ctx.bullets.map(info => h(Bullet, { x: info.x, y: info.y }))
+    }
+
     return h('Container', [
       h(Map),
-      h(Plane, { x: ctx.planeInfo.x, y: ctx.planeInfo.y }),
-      ...createEnemyPlanes()
+      h(Plane, { x: ctx.planeInfo.x, y: ctx.planeInfo.y, onAttack: ctx.onAttack }),
+      ...createEnemyPlanes(),
+      ...createBullets()
     ])
   }
 })
