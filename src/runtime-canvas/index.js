@@ -1,23 +1,18 @@
 
 import { createRenderer } from '@vue/runtime-core';
-import { Text, Graphics } from 'pixi.js'
+import { Text, Graphics, Container, Sprite, Texture } from 'pixi.js'
 
 const renderer = createRenderer({
   // 创建元素
   createElement(type) {
     let element;
-    if (type === "rect") {
-      // 创建一个矩形
-      element = new Graphics();
-      element.beginFill(0xff0000);
-      element.drawRect(0, 0, 500, 500);
-      element.endFill();
-    } else if (type === "circle") {
-      // 创建一个圆
-      element = new Graphics();
-      element.beginFill(0xff00ff);
-      element.drawCircle(0, 0, 100);
-      element.endFill()
+    switch (type) {
+      case "Container": 
+        element = new Container()
+        break;
+      case "Sprite": 
+        element = new Sprite()
+        break;
     }
 
     return element
@@ -38,7 +33,17 @@ const renderer = createRenderer({
   },
 
   patchProp(el, key, preValue, nextValue) {
-    el[key] = nextValue
+    switch (key) {
+      // pixi 针对图片的路径属性 texture 的特殊处理
+      case "texture": 
+        el.texture = Texture.from(nextValue)
+        break;
+      case "onClick": 
+        el.on("pointertap", nextValue)
+        break;
+      default:
+        el[key] = nextValue
+    }
   },
 
   // 处理注释
