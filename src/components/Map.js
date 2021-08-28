@@ -9,7 +9,8 @@ export default defineComponent({
     const viewHeight = 1080;
     const mapY1 = ref(0);
     const mapY2 = ref(-viewHeight);
-    const speed = 5
+    const speed = 5;
+    // 循环借助 pixi 的 ticker 类似于 setInterval
     game.ticker.add(() => {
       mapY1.value += speed;
       mapY2.value += speed;
