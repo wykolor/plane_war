@@ -4,11 +4,13 @@ import StartPage from "./pages/StartPage";
 
 import GamePage from "./pages/GamePage";
 
+import EndPage from "./pages/EndPage";
+
 export default defineComponent({
   setup() {
-    const pageMap = new Map([["StartPage", StartPage], ["GamePage", GamePage]]);
+    const pageMap = new Map([ ["StartPage", StartPage], ["GamePage", GamePage], ["EndPage", EndPage] ]);
 
-    const currentPageName = ref("GamePage");
+    const currentPageName = ref("StartPage");
 
     console.log(currentPageName);
 

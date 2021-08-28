@@ -1,4 +1,5 @@
 import { reactive } from "@vue/runtime-core";
+
 export function useCreatePlane () {
   const planeInfo = reactive({ x: 226, y: 500, width: 258, height: 364 });
   const speed = 10;
@@ -14,8 +15,8 @@ export function useCreatePlane () {
         break;
       case "ArrowDown": 
         // 边界处理
-        if (planeInfo.y >= (880 - 364)) {
-          planeInfo.y = 880 - 364
+        if (planeInfo.y >= (1080 - 364)) {
+          planeInfo.y = 1080 - 364
         }
         planeInfo.y += speed
         break;
