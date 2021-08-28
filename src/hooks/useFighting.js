@@ -5,15 +5,24 @@ import { hitTextObject } from "../utils";
 export function useFighting(enemyPlanes, bullets, planeInfo, emit ) {
   const handleTicker = () => {
     // 主循环
-
+    const bulletSpeed = 5;
+    const enemyPlaneSpeed = Math.random() * 5;
     // 敌军飞机移动
     enemyPlanes.forEach((enemyInfo) => {
       enemyInfo.y ++
+      // 随机移动 待优化
+      if (enemyInfo.x <= 0) {
+        enemyInfo.x += enemyPlaneSpeed
+      } else if (enemyInfo.x >= (750 - 308)) {
+        enemyInfo.x -= enemyPlaneSpeed
+      } else {
+        enemyInfo.x += enemyPlaneSpeed
+      }
     })
 
     // 移动我方子弹
     bullets.forEach((bulletInfo) => {
-      bulletInfo.y --
+      bulletInfo.y -= bulletSpeed
     })
 
     // 碰撞检测

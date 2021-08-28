@@ -13,7 +13,12 @@ export default defineComponent({
     const { planeInfo } = useCreatePlane();
 
     // 敌方飞机
-    const { enemyPlanes } = useCreateEnemyPlanes();
+    const { enemyPlanes, addEnemyPlane } = useCreateEnemyPlanes();
+
+    // addEnemyPlane 待优化
+    setInterval(() => {
+      addEnemyPlane({x: Math.random() * 100, y: Math.random() * 100})
+    }, 100);
 
     // 我方子弹
     const { bullets, addBullet } = useCreateBullets();
