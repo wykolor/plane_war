@@ -18,7 +18,7 @@ export default defineComponent({
     // addEnemyPlane 待优化
     setInterval(() => {
       addEnemyPlane({x: Math.random() * 100, y: Math.random() * 100})
-    }, 100);
+    }, 500);
 
     // 我方子弹
     const { bullets, addBullet } = useCreateBullets();
